@@ -11,7 +11,6 @@ import (
 type CreateUserRequestBody struct {
 	Name    string `json:"name"`
 	Address string `json:"address"`
-	//CompanyUuid string `json:"company_uuid"`
 }
 
 func CreateOffice(ctx *gin.Context, c customer.OfficeServiceClient) {
