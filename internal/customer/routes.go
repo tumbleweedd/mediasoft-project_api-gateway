@@ -26,6 +26,10 @@ func RegisterRoutes(r *gin.Engine, customerUrl string) {
 			users.GET("", svc.getUsers)
 			users.POST("", svc.createUser)
 		}
+		orders := customer.Group("/orders")
+		{
+			orders.POST("")
+		}
 	}
 }
 
@@ -48,3 +52,5 @@ func (s *ServiceClient) createUser(ctx *gin.Context) {
 func (s *ServiceClient) getUsers(ctx *gin.Context) {
 	usersRoute.GetUsers(ctx, s.Client.userServiceClient)
 }
+
+// --- Orders
