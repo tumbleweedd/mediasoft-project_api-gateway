@@ -68,18 +68,19 @@ func createTimeRequest(ctx *gin.Context, body CreateMenuRequest) []*timestamppb.
 	if err != nil {
 		errors.HandleServiceError(ctx, err)
 	}
-	result = append(result, onDate)
 
 	openingRecordAt, err := attributeInTimestamp(body.OpeningRecordAt)
 	if err != nil {
 		errors.HandleServiceError(ctx, err)
 	}
-	result = append(result, openingRecordAt)
 
 	closingRecordAt, err := attributeInTimestamp(body.ClosingRecordAt)
 	if err != nil {
 		errors.HandleServiceError(ctx, err)
 	}
+
+	result = append(result, onDate)
+	result = append(result, openingRecordAt)
 	result = append(result, closingRecordAt)
 
 	return result
