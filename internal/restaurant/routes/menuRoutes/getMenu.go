@@ -88,6 +88,7 @@ func addProductToMenu(menu *Menu, product *restaurant.Product) {
 		Type:        product.Type.String(),
 		Weight:      product.Weight,
 		Price:       product.Price,
+		CreatedAt:   product.CreatedAt.AsTime().Format(time.RFC3339),
 	}
 
 	switch product.Type {
