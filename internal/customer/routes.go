@@ -3,6 +3,7 @@ package customer
 import (
 	"github.com/gin-gonic/gin"
 	officesRoutes2 "github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/customer/routes/officesRoutes"
+	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/customer/routes/ordersRoutes"
 	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/customer/routes/usersRoute"
 )
 
@@ -54,3 +55,7 @@ func (s *ServiceClient) getUsers(ctx *gin.Context) {
 }
 
 // --- Orders
+
+func (s *ServiceClient) getActualMenu(ctx *gin.Context) {
+	ordersRoutes.GetActualMenu(ctx, s.Client.orderServiceClient)
+}
