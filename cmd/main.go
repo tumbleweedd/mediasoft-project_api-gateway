@@ -1,28 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
-	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/customer"
-	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/restaurant"
-	"log"
-	"os"
+	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/app"
 )
 
 func main() {
-	var err error
-	err = godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error getting env, %v", err)
-	} else {
-		fmt.Println("We are getting the env values")
-	}
-
-	r := gin.Default()
-
-	customer.RegisterRoutes(r, os.Getenv("CUSTOMER_SVC_URL"))
-	restaurant.RegisterRoutes(r, os.Getenv("RESTAURANT_SVC_URL"))
-
-	r.Run(os.Getenv("PORT"))
+	app.Run()
 }
