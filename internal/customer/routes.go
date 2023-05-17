@@ -29,7 +29,7 @@ func RegisterRoutes(r *gin.Engine, customerUrl string) {
 		}
 		orders := customer.Group("/orders")
 		{
-			orders.POST("")
+			orders.POST("", svc.createOrder)
 		}
 	}
 }
@@ -58,4 +58,8 @@ func (s *ServiceClient) getUsers(ctx *gin.Context) {
 
 func (s *ServiceClient) getActualMenu(ctx *gin.Context) {
 	ordersRoutes.GetActualMenu(ctx, s.Client.orderServiceClient)
+}
+
+func (s *ServiceClient) createOrder(ctx *gin.Context) {
+	ordersRoutes.CreateOrder(ctx, s.Client.orderServiceClient)
 }

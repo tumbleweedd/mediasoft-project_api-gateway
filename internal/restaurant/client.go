@@ -7,14 +7,14 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-type CustomerServiceClient struct {
+type RestaurantServiceClient struct {
 	orderServiceClient   restaurant.OrderServiceClient
 	menuServiceClient    restaurant.MenuServiceClient
 	productServiceClient restaurant.ProductServiceClient
 }
 
 type ServiceClient struct {
-	Client CustomerServiceClient
+	Client RestaurantServiceClient
 }
 
 func InitServiceClient(restaurantUrl string) *ServiceClient {
@@ -27,7 +27,7 @@ func InitServiceClient(restaurantUrl string) *ServiceClient {
 	productServiceClient := restaurant.NewProductServiceClient(conn)
 
 	return &ServiceClient{
-		Client: CustomerServiceClient{
+		Client: RestaurantServiceClient{
 			orderServiceClient:   orderServiceClient,
 			menuServiceClient:    menuServiceClient,
 			productServiceClient: productServiceClient,
@@ -35,8 +35,8 @@ func InitServiceClient(restaurantUrl string) *ServiceClient {
 	}
 }
 
-func ConvertToTempServiceClient(serviceClient *ServiceClient) CustomerServiceClient {
-	return CustomerServiceClient{
+func ConvertToTempServiceClient(serviceClient *ServiceClient) RestaurantServiceClient {
+	return RestaurantServiceClient{
 		orderServiceClient:   serviceClient.Client.orderServiceClient,
 		menuServiceClient:    serviceClient.Client.menuServiceClient,
 		productServiceClient: serviceClient.Client.productServiceClient,

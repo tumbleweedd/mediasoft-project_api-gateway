@@ -9,13 +9,13 @@ import (
 )
 
 type CreateOrderRequestBody struct {
-	UserUUID  string              `json:"user_uuid"`
-	Salads    []CustomerOrderItem `json:"salads"`
-	Garnishes []CustomerOrderItem `json:"garnishes"`
-	Meats     []CustomerOrderItem `json:"meats"`
-	Soups     []CustomerOrderItem `json:"soups"`
-	Drinks    []CustomerOrderItem `json:"drinks"`
-	Desserts  []CustomerOrderItem `json:"desserts"`
+	UserUUID  string               `json:"user_uuid"`
+	Salads    []*CustomerOrderItem `json:"salads"`
+	Garnishes []*CustomerOrderItem `json:"garnishes"`
+	Meats     []*CustomerOrderItem `json:"meats"`
+	Soups     []*CustomerOrderItem `json:"soups"`
+	Drinks    []*CustomerOrderItem `json:"drinks"`
+	Desserts  []*CustomerOrderItem `json:"desserts"`
 }
 
 type CustomerOrderItem struct {
@@ -46,21 +46,21 @@ func createOrderRequestFromRequestBody(reqBody *CreateOrderRequestBody) *custome
 		UserUuid: reqBody.UserUUID,
 	}
 
-	addOrderItems := func(dest []*customer.OrderItem, src []CustomerOrderItem) {
+	addOrderItems := func(dest *[]*customer.OrderItem, src []*CustomerOrderItem) {
 		for _, item := range src {
-			dest = append(dest, &customer.OrderItem{
+			*dest = append(*dest, &customer.OrderItem{
 				Count:       int32(item.Count),
 				ProductUuid: item.ProductUUID,
 			})
 		}
 	}
 
-	addOrderItems(orderRequest.Salads, reqBody.Salads)
-	addOrderItems(orderRequest.Garnishes, reqBody.Garnishes)
-	addOrderItems(orderRequest.Meats, reqBody.Meats)
-	addOrderItems(orderRequest.Soups, reqBody.Soups)
-	addOrderItems(orderRequest.Drinks, reqBody.Drinks)
-	addOrderItems(orderRequest.Desserts, reqBody.Desserts)
+	addOrderItems(&orderRequest.Salads, reqBody.Salads)
+	addOrderItems(&orderRequest.Garnishes, reqBody.Garnishes)
+	addOrderItems(&orderRequest.Meats, reqBody.Meats)
+	addOrderItems(&orderRequest.Soups, reqBody.Soups)
+	addOrderItems(&orderRequest.Drinks, reqBody.Drinks)
+	addOrderItems(&orderRequest.Desserts, reqBody.Desserts)
 
 	return orderRequest
 }
