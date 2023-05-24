@@ -2,8 +2,9 @@ package restaurant
 
 import (
 	"github.com/gin-gonic/gin"
-	menuRoutes2 "github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/restaurant/routes/menuRoutes"
-	productsRoutes2 "github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/restaurant/routes/productsRoutes"
+	restaurantMenuRoutes "github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/restaurant/routes/menuRoutes"
+	restaurantOrdersRoutes "github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/restaurant/routes/ordersRoutes"
+	restaurantProductsRoutes "github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/restaurant/routes/productsRoutes"
 )
 
 func RegisterRoutes(r *gin.Engine, restaurantUrl string) {
@@ -26,25 +27,34 @@ func RegisterRoutes(r *gin.Engine, restaurantUrl string) {
 			products.POST("", svc.createProduct)
 			products.GET("", svc.getProducts)
 		}
+		orders := restaurant.Group("/orders")
+		{
+			orders.GET("", svc.getOrderList)
+		}
 	}
 }
 
 // --- Menu
 
 func (s *ServiceClient) createMenu(ctx *gin.Context) {
-	menuRoutes2.CreateMenu(ctx, s.Client.menuServiceClient)
+	restaurantMenuRoutes.CreateMenu(ctx, s.Client.menuServiceClient)
 }
 
 func (s *ServiceClient) getMenu(ctx *gin.Context) {
-	menuRoutes2.GetMenu(ctx, s.Client.menuServiceClient)
+	restaurantMenuRoutes.GetMenu(ctx, s.Client.menuServiceClient)
 }
 
 // --- Products
 
 func (s *ServiceClient) createProduct(ctx *gin.Context) {
-	productsRoutes2.CreateProduct(ctx, s.Client.productServiceClient)
+	restaurantProductsRoutes.CreateProduct(ctx, s.Client.productServiceClient)
 }
 
 func (s *ServiceClient) getProducts(ctx *gin.Context) {
-	productsRoutes2.GetProducts(ctx, s.Client.productServiceClient)
+	restaurantProductsRoutes.GetProducts(ctx, s.Client.productServiceClient)
+}
+
+// --- Orders
+func (s *ServiceClient) getOrderList(ctx *gin.Context) {
+	restaurantOrdersRoutes.GetOrderList(ctx, s.Client.orderServiceClient)
 }
