@@ -6,6 +6,8 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/customer"
 	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/restaurant"
+	"github.com/tumbleweedd/mediasoft-intership/api-gateway/internal/statistic"
+
 	"log"
 	"os"
 )
@@ -23,6 +25,7 @@ func Run() {
 
 	customer.RegisterRoutes(r, os.Getenv("CUSTOMER_SVC_URL"))
 	restaurant.RegisterRoutes(r, os.Getenv("RESTAURANT_SVC_URL"))
+	statistic.RegisterRoutes(r, os.Getenv("STATISTICS_SVC_URL"))
 
 	r.Run(os.Getenv("PORT"))
 }

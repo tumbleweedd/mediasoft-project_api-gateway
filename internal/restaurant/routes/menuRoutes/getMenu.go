@@ -2,7 +2,6 @@ package menuRoutes
 
 import (
 	"context"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/tumbleweedd/mediasoft-intership/api-gateway/pkg/errors"
 	"gitlab.com/mediasoft-internship/final-task/contracts/pkg/contracts/restaurant"
@@ -42,7 +41,6 @@ type Product struct {
 func GetMenu(ctx *gin.Context, c restaurant.MenuServiceClient) {
 	menuOnDateQuery := ctx.Query("on_date")
 	t, err := time.Parse(time.RFC3339, menuOnDateQuery)
-	fmt.Println(t)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, err.Error())
 		return
